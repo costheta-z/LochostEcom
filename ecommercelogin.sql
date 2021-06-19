@@ -36,6 +36,9 @@ CREATE TABLE IF NOT EXISTS`cart` (
   `description` varchar(300) NOT NULL,
   PRIMARY KEY (`cartitemid`)
 )
+alter table cart add column merchantname varchar(100) DEFAULT '';
+alter table cart add column gateway varchar(50) DEFAULT '';
+alter table cart add column gatewaymerchantid varchar(200) DEFAULT '';
 
 CREATE TABLE IF NOT EXISTS`liked` (
   `likeditemid` int(11) NOT NULL AUTO_INCREMENT,
