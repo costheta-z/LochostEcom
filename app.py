@@ -18,11 +18,11 @@ higher=1000000000
 likedalready=""
 cart_total=0
 
-app.secret_key = 'asecretkey'
+app.secret_key = 'secretkey'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'MySQL_password24'
+app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'ecommercelogin'
 
 mysql = MySQL(app)
