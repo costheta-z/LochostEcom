@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Index </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rest.css') }}">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="{{ url_for('profile') }}">Home</a>
+        <a href="{{ url_for('seller') }}">Seller</a>
+        <a class="active" href="{{ url_for('liked') }}">Liked Artwork</a>
+        <a href="{{ url_for('others') }}">Cart</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div class="content">
+
+        </br>
+        <h1 class="small">
+            {{session.username}} {{msg}}</br>
+        </h1><br> {% set ns = namespace(i=True) %} {% for imgfound in imglis %}
+        <div class="row">
+            {% if ns.i %} {% set ns.i=False %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.2}}</div>
+                <hr>
+                <form method="post" action="/dislike" class="form-inline">
+                    <button type="submit" name="remove_from_likes" class="" value={{imgfound.0}}>Dislike</button>
+                </form>
+                <form method="post" action="/putcart" class="form-inline">
+                    <button type="submit" name="add_to_cart" class="cartbt" value={{imgfound.0}}>Add to cart</button>
+                </form>
+                <div>Price: {{imgfound.1}}</div>
+                <hr>
+                <div>{{imgfound.3}}</div>
+            </div>
+            {% else %} {% set ns.i=True %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.2}}</div>
+                <hr>
+                <form method="post" action="/dislike" class="form-inline">
+                    <button type="submit" name="remove_from_likes" class="" value={{imgfound.0}}>Dislike</button>
+                </form>
+                <form method="post" action="/putcart" class="form-inline">
+                    <button type="submit" name="add_to_cart" class="cartbt" value={{imgfound.0}}>Add to cart</button>
+                </form>
+                <div>Price: {{imgfound.1}}</div>
+                <hr>
+                <div>{{imgfound.3}}</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        </br>
+        </br>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='indexjs.js') }}"></script>
+</body>
+
+</html>

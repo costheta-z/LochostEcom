@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Index </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='indexcss.css') }}">
+    <!-- <script src="{{ url_for('static', filename='indexjs.js') }}"></script> -->
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="{{ url_for('profile') }}">Home</a>
+        <a href="{{ url_for('seller') }}">Seller</a>
+        <a href="{{ url_for('liked') }}">Liked Artwork</a>
+        <a href="{{ url_for('others') }}">Cart</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <div class="search-container">
+            <form action="/search" method="POST">
+                <input type="text" placeholder="Search" name="search">
+                <button type="submit">Apply</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="column">
+
+        <div class="sidenav">
+            <a href="{{ url_for('userupdate') }}">
+                                        Update {{session.username}}'s Information
+                                </a><br>
+            <a href="{{ url_for('about') }}">About</a>
+            <br>
+            <div class="forms">
+                {% if low!=0 or high!=1000000000%} Current price range set to:<br> {{low}} - {{high}} {% endif %}
+                <br>
+                <hr>Set price range:<br><br>
+                <form action="/pricerange" method="POST">
+                    <label for="from1">From: </label>
+                    <input type="text" id="from1" name="from1" value={{low}}><br>
+                    <label for="to1">To: </label>
+                    <input type="text" id="to1" name="to1" value={{high}}><br><br>
+                    <button type="submit" name="all" value="all">Set</button><br>
+                    <hr>
+                </form>Reset price range:<br><br>
+                <form action="/pricerangeall" method="POST">
+                    <button type="submit" name="all" value="all">Reset</button>
+                </form>
+                <hr>
+            </div>
+            </br>
+        </div>
+    </div>
+
+    <div class="content">
+
+
+        </br>
+
+
+
+        {% set ns = namespace(i=True) %} {% for imgfound in imglis %}
+        <div class="row">
+            {% if ns.i %} {% set ns.i=False %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.3}}</div>
+                <hr>
+                <form method="post" action="/putlike" class="form-inline">
+                    <button type="submit" name="add_to_likes" class="likebt" value={{imgfound.0}}>Like</button>
+                </form>
+                <div>Availability: {{imgfound.1}}</div>
+                <div>Price: {{imgfound.2}}</div>
+                <hr>
+                <form method="post" action="/putcart" class="form-inline">
+                    <button type="submit" name="add_to_cart" class="cartbt" value={{imgfound.0}}>Add to cart</button>
+                </form>
+                <div>{{imgfound.4}}</div>
+            </div>
+            {% else %} {% set ns.i=True %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.3}}</div>
+                <hr>
+                <form method="post" action="/putlike" class="form-inline">
+                    <button type="submit" name="add_to_likes" class="likebt" value={{imgfound.0}}>Like</button>
+                </form>
+                <div>Availability: {{imgfound.1}}</div>
+                <div>Price: {{imgfound.2}}</div>
+                <hr>
+                <form method="post" action="/putcart" class="form-inline">
+                    <button type="submit" name="add_to_cart" class="cartbt" value={{imgfound.0}}>Add to cart</button>
+                </form>
+                <div>{{imgfound.4}}</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+
+
+        </br>
+    </div>
+
+    <script src="{{ url_for('static', filename='indexjs.js') }}"></script>
+</body>
+
+</html>

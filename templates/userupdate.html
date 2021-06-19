@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update/Complete User Information</title>
+</head>
+
+<body>
+    {{msg}}<br><br> {% if msg!="Update your address" %} Update you information:<br>
+    <form method="post" action="/infoupdatepage" class="form-inline">
+        <label for="name">New Username:</label><br>
+        <input type="text" id="qnt" name="name" value={{session.username}}><br>
+        <label for="pass">New Password:</label><br>
+        <input type="password" id="qnt" name="pass" value=''><br>
+        <label for="add">Address:</label><br>
+        <input type="text" id="qnt" name="add" value={{add}}><br>
+        <label for="zip">Plot Number:</label><br>
+        <input type="text" id="qnt" name="zip" value={{zip}}><br>
+        <label for="zip2">Zip Code:</label><br>
+        <input type="text" id="qnt" name="zip2" value={{zip2}}><br>
+        <button type="submit" name="update" class="btn btn-success" value="allupd">Update</button>
+    </form>
+    {% endif %} {% if msg== "Update your address" %}
+    <form method="post" action="/infoupdatepage" class="form-inline">
+        <label for="add">Address:</label><br>
+        <input type="text" id="qnt" name="add" value={{add}}><br>
+        <label for="zip">Plot Number:</label><br>
+        <input type="text" id="qnt" name="zip" value={{zip}}><br>
+        <label for="zip2">Zip Code:</label><br>
+        <input type="text" id="qnt" name="zip2" value={{zip2}}><br>
+
+        <button type="submit" name="update" class="btn btn-success" value="addupd">Enter</button>
+    </form>
+    {% endif %}
+    <br>
+    <form method="post" action="/profile" class="form-inline">
+        <button type="submit" name="home" class="btn btn-success">Return Home</button>
+    </form>
+</body>
+
+</html>

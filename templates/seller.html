@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Index </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rest.css') }}">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="{{ url_for('profile') }}">Home</a>
+        <a class="active" href="{{ url_for('seller') }}">Seller</a>
+        <a href="{{ url_for('liked') }}">Liked Artwork</a>
+        <a href="{{ url_for('others') }}">Cart</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div class="content">
+        <div class="container">
+            <h1 class="small">
+                {{session.username}} {{warning}}</br>
+            </h1>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                        <div class="alert alert-success">
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% endfor %} {% endif %} {% endwith %}
+                    </p>
+                    <div>
+                        <form method="post" action="/upload" enctype="multipart/form-data" class="form-inline">
+                            <div class="form-group">
+                                <label>Choose Product Image:  </label>
+                                <input type="file" name="files" id="fileInput" class="form-control" multiple>
+                            </div>
+                            <br>
+                            <label for="qnt">Quantity: </label>
+                            <input type="text" id="qnt" name="qnt" value=0><br><br>
+                            <label for="qnt">Price: </label>
+                            <input type="text" id="price" name="price" value=0><br><br>
+                            <textarea rows="4" cols="50" name="title" placeholder="Enter product name here"></textarea>
+                            <br><br>
+                            <textarea rows="4" cols="50" name="description" placeholder="Enter description here"></textarea>
+                            <br><br>
+                            <label for="merchantname">Merchant Name: </label>
+                            <input type="text" id="merchantname" name="merchantname" value=''><br><br>
+                            <label for="gateway">Payment Gateway (Case sensitive): </label>
+                            <input type="text" id="gateway" name="gateway" value=''><br><br>
+                            <label for="gatewaymerid">Gateway Merchant ID: </label>
+                            <input type="text" id="gatewaymerid" name="gatewaymerid" value=''><br><br>
+                            <input type="submit" name="submit" class="btn btn-success" value="UPLOAD" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
+        </br>
+        {% set ns = namespace(i=True) %} {% for imgfound in lis%}
+        <div class="row">
+            {% if ns.i %} {% set ns.i=False %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.3}}</div>
+                <hr>
+                <form method="post" action="/delsel" class="form-inline">
+                    <button type="submit" name="remove_from_seller" class="" value={{imgfound.0}}>Delete item</button>
+                </form>
+                <form method="post" action="/alterqtn" class="form-inline">
+                    <button type="submit" name="alter_qtn" class="" value={{imgfound.0}}>Update quantity</button>
+                </form>
+                <form method="post" action="/alterprice" class="form-inline">
+                    <button type="submit" name="alter_price" class="" value={{imgfound.0}}>Update price</button>
+                </form>
+                <div>Quantity: {{imgfound.1}}</div>
+                <div>Price: {{imgfound.2}}</div>
+                <div>Merchant Name: {{imgfound.5}}</div>
+                <div>Gateway: {{imgfound.6}}</div>
+                <div>Gateway Merchant ID: {{imgfound.7}}</div>
+
+                <hr>
+                <div>{{imgfound.4}}</div>
+            </div>
+            {% else %} {% set ns.i=True %} </br>
+            <div class="column" style="background-color:#121212;">
+                <img src="{{ url_for('static', filename='uploads/' + imgfound.0) }}" width="400px">
+            </div>
+            <div class="column2" style="background-color:rgb(56, 56, 56);">
+                <div class="title">{{imgfound.3}}</div>
+                <hr>
+                <form method="post" action="/delsel" class="form-inline">
+                    <button type="submit" name="remove_from_seller" class="" value={{imgfound.0}}>Delete item</button>
+                </form>
+                <form method="post" action="/alterqtn" class="form-inline">
+                    <button type="submit" name="alter_qtn" class="" value={{imgfound.0}}>Update quantity</button>
+                </form>
+                <form method="post" action="/alterprice" class="form-inline">
+                    <button type="submit" name="alter_price" class="" value={{imgfound.0}}>Update price</button>
+                </form>
+                <div>Quantity: {{imgfound.1}}</div>
+                <div>Price: {{imgfound.2}}</div>
+                <div>Merchant Name: {{imgfound.5}}</div>
+                <div>Gateway: {{imgfound.6}}</div>
+                <div>Gateway Merchant ID: {{imgfound.7}}</div>
+                <hr>
+                <div>{{imgfound.4}}</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        </br>
+
+    </div>
+    <script src="{{ url_for('static', filename='seller.js') }}"></script>
+</body>
+
+</html>

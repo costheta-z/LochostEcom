@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+    {% if field=="quantity" %} Current Quantity: {{qnt}}
+    <form method="post" action="/updatequan" class="form-inline">
+        <label for="qnt">New Value for Quantity:</label><br>
+        <input type="text" id="qnt" name="qnt" value={{qnt}}><br>
+        <button type="submit" name="update" class="btn btn-success" value={{fileid}}>Update</button>
+    </form>
+    {% endif %} {% if field=="price" %} Current Price: {{qnt}}
+    <form method="post" action="/updateprice" class="form-inline">
+        <label for="qnt">New Price:</label><br>
+        <input type="text" id="qnt" name="price" value={{qnt}}><br>
+        <button type="submit" name="updatep" class="btn btn-success" value={{fileid}}>Update</button>
+    </form>
+    {% endif %}
+</body>
+
+</html>
