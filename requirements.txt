@@ -6,6 +6,5 @@ gunicorn==20.1.0
 itsdangerous==2.0.1
 Jinja2==3.0.1
 MarkupSafe==2.0.1
-mysqlclient @ file:///C:/Users/HP/Downloads/mysqlclient-1.4.6-cp38-cp38-win32.whl
+mysqlclient @ file:///C:/Users/HP/Downloads/mysqlclient-1.4.6-cp38-cp38-win64.whl
 Werkzeug==2.0.1
-Python==3.8
